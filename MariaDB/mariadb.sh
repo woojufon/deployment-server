@@ -26,27 +26,27 @@ systemctl start mariadb
 mysql_secure_installation <<EOF
 $first_dbpass
 Y
-root
-root
+$dbpass
+$dbpass
 Y
 n
 Y
 Y
 EOF
 
-mysql -uroot -proot<<EOF
+mysql -uroot -p$dbpass <<EOF
 use mysql;
 update user set host='%' where user='root' and host='127.0.0.1';
 exit
 EOF
 
-mysql -uroot -proot <<EOF
+mysql -uroot -p$dbpass <<EOF
 set global max_connections=2000;
 exit
 EOF
 
 mysql_secure_installation <<EOF
-root
+$dbpass
 n
 n
 n
