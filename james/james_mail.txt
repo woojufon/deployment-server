@@ -1,0 +1,27 @@
+1、安装java
+2、安装mysql
+
+2、解压tar -zxf apache-james-3.0-beta4-app.tar.gz
+3、将conf文件夹配置好考入相应目录，只改数据库链接配置
+4、保障25端口可用
+systemctl stop postfix.service
+systemctl disable postfix.service
+5、建立一个james数据库，不建表
+6、进入bin下，执行./run.sh
+
+7、注册成服务
+将startjames.sh与stopjames.sh考入到根下
+chmod 777 startjames.sh
+chmod 777 stopjames.sh
+cp /home/james.service /etc/systemd/system
+
+systemctl enable james
+systemctl start james
+
+8、配置域名
+./james-cli.sh -h localhost adddomain box.com
+添加用户
+./james-cli.sh  -h localhost adduser admin@box.com 123456
+
+
+
