@@ -1,3 +1,3 @@
 #!/bin/sh
-cd /home/apache-james-3.0-beta4/bin/
+cd /home/james-server-app-3.0.0/bin/
 nohup ./run.sh &

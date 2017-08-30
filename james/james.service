@@ -4,7 +4,7 @@ Description=james-mail
 [Service]
 Type=forking
 Environment=JAVA_HOME=/home/jdk1.8.0_121
-ExecStart=/home/apache-james-3.0-beta4/startjames.sh
-ExecStop=/home/apache-james-3.0-beta4/stopjames.sh
+ExecStart=/home/james-server-app-3.0.0/startjames.sh
+ExecStop=/home/james-server-app-3.0.0/stopjames.sh
 [Install]
 WantedBy=multi-user.target

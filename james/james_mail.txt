@@ -13,7 +13,7 @@ systemctl disable postfix.service
 将startjames.sh与stopjames.sh考入到根下
 chmod 777 startjames.sh
 chmod 777 stopjames.sh
-cp /home/james.service /etc/systemd/system
+cp /home/james-server-app-3.0.0/james.service /etc/systemd/system
 
 systemctl enable james
 systemctl start james
