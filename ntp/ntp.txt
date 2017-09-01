@@ -16,8 +16,12 @@ systemctl restart network.service
 systemctl disable firewalld
 systemctl stop firewalld
 
-6、分别执行ntp_master.sh和ntp_slave.sh
+6、需要将/etc/selinux/config
+设置SELINUX=disabled
+setenforce 0
 
-7、执行
+7、分别执行ntp_master.sh和ntp_slave.sh
+
+8、执行
 ntpq -c assoc
 验证是否已经同步
