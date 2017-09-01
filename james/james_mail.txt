@@ -22,9 +22,9 @@ systemctl start james
 chmod 777 james-cli.sh
 
 8、配置域名
-./james-cli.sh -h localhost adddomain box.com
+./james-cli.sh -h localhost adddomain vip.threecss.com
 添加用户
-./james-cli.sh  -h localhost adduser admin@box.com 123456
+./james-cli.sh  -h localhost adduser admin@vip.threecss.com 123456
 
 
 
