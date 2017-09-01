@@ -5,3 +5,19 @@ slave
 
 172.27.108.76 master
 172.27.108.75 slave
+
+3、重启网络
+systemctl restart network.service
+
+4、ssh断开重连
+
+5、关闭防火墙
+
+systemctl disable firewalld
+systemctl stop firewalld
+
+6、分别执行ntp_master.sh和ntp_slave.sh
+
+7、执行
+ntpq -c assoc
+验证是否已经同步
