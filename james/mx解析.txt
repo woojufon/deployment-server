@@ -1,0 +1,4 @@
+例如 xxx@vip.threecss.com
+可以解析成 mxbiz1.threecss.com
+
+在james数据库注册的域名为vip.threecss.com
