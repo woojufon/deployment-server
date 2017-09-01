@@ -1,7 +1,7 @@
 1、安装java
 2、安装mysql
 
-2、解压tar -zxf apache-james-3.0-beta4-app.tar.gz
+2、解压 james-server-app-3.0.0-app.zip
 3、将conf文件夹配置好考入相应目录，只改数据库链接配置
 4、保障25端口可用
 systemctl stop postfix.service
