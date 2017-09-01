@@ -3,8 +3,8 @@ master
 slave
 2¡¢ĞŞ¸Äetc/hosts
 
-172.27.108.76 master
-172.27.108.75 slave
+172.27.108.75 master
+172.27.108.76 slave
 
 3¡¢ÖØÆôÍøÂç
 systemctl restart network.service

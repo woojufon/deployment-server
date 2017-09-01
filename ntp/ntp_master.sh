@@ -15,3 +15,5 @@ EOF
 #启动ntp
 systemctl enable ntpd.service
 systemctl start ntpd.service
+#解决ntp开机无法启动的问题
+systemctl disable chronyd
