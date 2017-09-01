@@ -1,0 +1,7 @@
+1¡¢ÐÞ¸Äetc/hostname
+master
+slave
+2¡¢ÐÞ¸Äetc/hosts
+
+172.27.108.76 master
+172.27.108.75 slave
