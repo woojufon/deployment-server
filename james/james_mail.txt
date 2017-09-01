@@ -18,6 +18,9 @@ cp /home/james-server-app-3.0.0/james.service /etc/systemd/system
 systemctl enable james
 systemctl start james
 
+设置权限
+chmod 777 james-cli.sh
+
 8、配置域名
 ./james-cli.sh -h localhost adddomain box.com
 添加用户
