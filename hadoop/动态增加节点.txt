@@ -1,0 +1,68 @@
+注意：不用关闭原先集群环境服务
+
+
+1、安装java
+
+2、将文件考入home下
+tar zxvf hadoop-2.6.0.tar.gz
+
+3、关闭防火墙
+systemctl disable firewalld
+systemctl stop firewalld
+
+4、修改/etc/hostname为 s3
+
+5、（所有节点）修改/etc/hosts，增加
+172.27.108.57 m1
+172.27.108.56 s1
+172.27.108.55 s2
+172.27.108.54 s3
+
+6、重启网络
+systemctl restart network.service
+
+7、ssh断开重连
+
+
+
+
+8、安装设置ssh
+
+三台机器都设置ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+三台机器都设置cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+主机器设置
+scp ~/.ssh/authorized_keys 172.27.108.54:~/.ssh/
+
+9.（原所有节点[不包含新增节点]执行）
+	修改vi /home/hadoop-2.6.0/etc/hadoop/slaves
+	把新增的节点配置进去
+	s1（原）
+	s2（原）
+	xx（新增）
+
+
+
+10.(master上执行)
+	把master的配置拷贝到新增节点
+scp /home/hadoop-2.6.0/etc/hadoop/slaves root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/slaves
+scp /home/hadoop-2.6.0/etc/hadoop/core-site.xml root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/core-site.xml
+scp /home/hadoop-2.6.0/etc/hadoop/hadoop-env.sh root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/hadoop-env.sh
+scp /home/hadoop-2.6.0/etc/hadoop/hdfs-site.xml root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/hdfs-site.xml
+scp /home/hadoop-2.6.0/etc/hadoop/mapred-site.xml root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/mapred-site.xml
+scp /home/hadoop-2.6.0/etc/hadoop/yarn-env. root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/yarn-env.sh
+scp /home/hadoop-2.6.0/etc/hadoop/yarn-site.xml root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/yarn-site.xml
+
+11.(在新增节点上执行)
+	在hadoop安装目录下输入 cd /home/hadoop-2.6.0
+	启动datanode进程 ： sbin/hadoop-daemon.sh start datanode
+	（jps 看看 datanode进程起没起来，进入50070管理页面看看节点加没加进去）
+	启动nodeManager进程 ： sbin/yarn-daemon.sh start nodemanager 
+	（jps 看看 nodeManager进程起没起来）
+	
+	均衡块文件 ： sbin/start-balancer.sh（没用）
+
+
+12、正主节点从新（以后开机启动时需要用到）
+sbin/start-dfs.sh
+sbin/start-yarn.sh 
+走一遍流程，主动调用需要输入yes
