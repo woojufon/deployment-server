@@ -1,0 +1,98 @@
+1、安装java
+
+2、将文件考入home下
+tar zxvf hadoop-2.6.0.tar.gz
+
+3、关闭防火墙
+systemctl disable firewalld
+systemctl stop firewalld
+
+4、修改/etc/hostname为 m1 s1 s2...
+
+5、修改/etc/hosts，增加
+172.27.108.57 m1
+172.27.108.56 s1
+172.27.108.55 s2
+...
+
+6、重启网络
+systemctl restart network.service
+
+7、ssh断开重连
+
+8、安装设置ssh
+三台机器都设置ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+三台机器都设置cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+主机器设置
+scp ~/.ssh/authorized_keys 172.27.108.56:~/.ssh/
+scp ~/.ssh/authorized_keys 172.27.108.55:~/.ssh/
+
+以上命令需要输入yes和密码
+
+
+9、修改配置
+
+hdfs文件夹
+
+    ip地址、javahome、slaves
+
+yan文件夹
+
+    ip地址、javahome
+
+将其考入/home/hadoop-2.6.0/etc/hadoop下
+
+
+
+10、格式化进入hadoop
+bin/hdfs namenode -format
+
+
+11、启动
+sbin/start-dfs.sh
+sbin/start-yarn.sh
+
+启动过程中会失败，中间需要输入yes
+kill调java进程后，再次启动即可
+
+需要输入jps确保进程
+m1 NameNode SecondaryNameNode ResourceManager
+s1 DataNode NodeManager
+s2 DataNode NodeManager
+
+就是启动成功了
+
+
+关闭
+sbin/stop-dfs.sh
+sbin/stop-yarn.sh
+
+12、设置服务，将service考入home下
+执行
+cshdfs.sh
+cshyarn.sh
+
+
+
+13、查看hadoop的状态
+http://172.27.108.57:50070/
+查看节点数是2个即可
+
+Untilities/Browse the file system 可以查看所有文件
+
+
+如果想本地下载文件，需要修改C:\Windows\System32\drivers\etc\hosts
+name与ip的映射
+
+172.27.108.57 m1
+
+14、网络格式必须是桥连，如果是nat模式的话，datanode连接不上namenode
+
+15、重置hadoop
+/home/hdfs/里的文件也都可以删除
+/home/hadoop-2.6.0/logs也都可以删除
+/tmp/里面有一些hadoop文件jetty、yarn、hadoop开头的都可以删除
+
+
+
+

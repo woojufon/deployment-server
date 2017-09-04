@@ -1,0 +1,9 @@
+[Unit]
+Description=hadoop-dfs
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+ExecStart=/home/hadoop-2.6.0/sbin/start-dfs.sh
+[Install]
+WantedBy=multi-user.target
