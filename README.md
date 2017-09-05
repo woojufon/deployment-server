@@ -11,8 +11,9 @@
 	java8
 	mariadb10.1
 	mongodb3.4
-	nginx1.12.1
+	nginx1.12.1(含配置转发与ssl)
 	python3.6.2
 	tomcat8.5.12
 	james3.0.0
-	ntp
+	ntp（时间同步脚本）
+	hadoop（集群部署、动态增加节点、hadoop集群之间数据迁移）
