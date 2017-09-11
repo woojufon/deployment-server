@@ -90,9 +90,9 @@
                some webmail client fails when AUTH is announced but no authentication
                information has been provided
           -->
-        <!--
+       
         <authRequired>true</authRequired>
-         -->
+        
 
 <!-- CHECKME! -->
         <!--  Uncomment this if you want to authorize specific addresses/networks.
@@ -109,17 +109,17 @@
                See also the RemoteAddrNotInNetwork matcher in the transport processor.
                You would generally use one OR the other approach.
          -->
-          <!--
-        <authorizedAddresses>127.0.0.0/8</authorizedAddresses>
-          -->
+         
+        <authorizedAddresses>172.26.104.0/24,172.27.0.0/16,127.0.0.0/8</authorizedAddresses>
+         
 
         <!--  Uncomment this if you want to verify sender addresses, ensuring that -->
         <!--  the sender address matches the user who has authenticated. -->
         <!--  This prevents a user of your mail server from acting as someone else -->
         <!--  If unspecified, default value is true -->
-        <!--
+       
         <verifyIdentity>true</verifyIdentity>
-         -->
+        
 
         <!--  This sets the maximum allowed message size (in kilobytes) for this -->
         <!--  SMTP service. If unspecified, the value defaults to 0, which means no limit. -->
