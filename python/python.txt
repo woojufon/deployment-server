@@ -1,5 +1,5 @@
 ﻿yum -y install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel gcc
-tar -zxvf Python-3.6.2.tgz
+tar -zxvf Python-3.6.4.tgz
 ./configure --prefix=/usr/py/py3.6
 make
 make test
