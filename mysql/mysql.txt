@@ -1,0 +1,57 @@
+
+
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+
+安装完会增加两个文件
+
+/etc/yum.repos.d/mysql-community.repo，/etc/yum.repos.d/mysql-community-source.repo
+
+
+yum -y install mysql-server
+
+修改my.cnf增加
+
+bind-address = 0.0.0.0
+default-storage-engine = innodb
+innodb_file_per_table
+collation-server = utf8_general_ci
+init-connect = 'SET NAMES utf8'
+character-set-server = utf8
+max_connections=818
+skip-name-resolve
+
+调用
+
+service mysqld restart
+
+
+mysql_secure_installation <<EOF
+$first_dbpass
+Y
+$dbpass
+$dbpass
+Y
+n
+Y
+Y
+EOF
+
+mysql -uroot -p$dbpass <<EOF
+use mysql;
+update user set host='%' where user='root' and host='127.0.0.1';
+set global max_connections=2000;
+exit
+EOF
+
+
+
+mysql_secure_installation <<EOF
+$dbpass
+n
+n
+n
+n
+Y
+EOF
