@@ -1,0 +1,45 @@
+192.168.12.109 主
+192.168.12.120 从
+
+主my.cnf增加
+
+log-bin=mysql-bin
+server-id=1
+
+# 不同步哪些数据库
+binlog-ignore-db = mysql
+binlog-ignore-db = test
+binlog-ignore-db = information_schema
+
+# 只同步哪些数据库，除此之外，其他不同步
+binlog-do-db = game
+
+重启mysql
+
+mysql -uroot -proot
+创建用户
+CREATE USER 'rep1'@'192.168.12.120' IDENTIFIED BY 'slavepass';
+分配权限
+GRANT REPLICATION SLAVE ON *.* TO 'rep1'@'192.168.12.120';
+刷新权限
+flush privileges;
+
+查看master状态，记录二进制文件名(mysql-bin.000003)和位置(73)
+
+SHOW MASTER STATUS;
+
+修改从my.cnf增加
+
+server-id=2
+
+重启mysql
+
+mysql -uroot -proot
+
+CHANGE MASTER TO MASTER_HOST='192.168.12.109', MASTER_USER='rep1', MASTER_PASSWORD='slavepass', MASTER_LOG_FILE='mysql-bin.000003', MASTER_LOG_POS=120;
+
+start slave;
+
+stop slave;(关闭)
+
+show slave status\G;
