@@ -21,7 +21,7 @@ vrrp_instance VI_1 {
 	#组别
     virtual_router_id 51
 	#优先级
-    priority 150
+    priority 101
 	#检测频率
     advert_int 1
 	#账号密码
