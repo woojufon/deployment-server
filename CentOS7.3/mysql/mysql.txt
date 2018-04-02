@@ -31,27 +31,26 @@ service mysqld restart
 
 
 mysql_secure_installation <<EOF
-$first_dbpass
+
 Y
-$dbpass
-$dbpass
+root
+root
 Y
 n
 Y
 Y
 EOF
 
-mysql -uroot -p$dbpass <<EOF
+mysql -uroot -proot <<EOF
 use mysql;
 update user set host='%' where user='root' and host='127.0.0.1';
-set global max_connections=2000;
 exit
 EOF
 
 
 
 mysql_secure_installation <<EOF
-$dbpass
+root
 n
 n
 n
