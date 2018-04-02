@@ -1,0 +1,12 @@
+1、如果只有mysql主主架构的话，keepalived足够了
+2、如果上层增加haproxy，则keepalived保障haproxy高可用，haproxy保障mysql故障转移
+
+验证keepalived生效（验证mysql就等于验证haproxy进程）
+1、使用虚ip连接数据库，成功对应主库
+2、停掉master keepalived，连接数据库，成功对应从库
+3、打开master keepalived，连接数据库，成功对应主库
+
+验证haproxy生效
+1、使用其他端口例如3307，成功对应主库
+2、停掉主库mysql，成功对应从库
+3、打开主库mysql，成功对应主库

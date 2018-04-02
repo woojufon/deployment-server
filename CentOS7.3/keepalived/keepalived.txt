@@ -9,18 +9,32 @@ yum -y install keepalived
 global_defs {
    router_id a1
 }
+vrrp_script check_mysql_haproxy {
+	script "/etc/keepalived/check_mysql_haproxy.sh"
+	interval 5
+	weight -20
+}
 vrrp_instance VI_1 {
     state MASTER
+	#绑定网卡
     interface enp0s3
+	#组别
     virtual_router_id 51
+	#优先级
     priority 150
+	#检测频率
     advert_int 1
+	#账号密码
     authentication {
         auth_type PASS
         auth_pass 1111
     }
+	#虚ip
     virtual_ipaddress {
         192.168.12.121
+    }
+	track_script {
+        check_mysql_haproxy
     }
 }
 
@@ -28,6 +42,11 @@ vrrp_instance VI_1 {
 
 global_defs {
    router_id a2
+}
+vrrp_script check_mysql_haproxy {
+	script "/etc/keepalived/check_mysql_haproxy.sh"
+	interval 5
+	weight -20
 }
 vrrp_instance VI_1 {
     state BACKUP
@@ -42,7 +61,11 @@ vrrp_instance VI_1 {
     virtual_ipaddress {
         192.168.12.121
     }
+	track_script {
+		check_mysql_haproxy
+    }
 }
+chmod 777 /etc/keepalived/check_mysql_haproxy.sh
 
 systemctl enable keepalived
 systemctl start keepalived

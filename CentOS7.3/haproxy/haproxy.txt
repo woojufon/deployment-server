@@ -1,0 +1,17 @@
+yum -y install haproxy
+
+修改/etc/sysctl.conf，增加
+net.ipv4.ip_nonlocal_bind=1
+
+修改配置文件/etc/haproxy/haproxy.cfg，增加
+
+listen mysql_cluster
+  bind 192.168.12.121:3306
+  mode tcp
+  balance  roundrobin
+  server controller1 192.168.12.109:3306 check inter 2000 rise 2 fall 5
+  server controller2 192.168.12.120:3306 backup check inter 2000 rise 2 fall 5
+  
+修改/etc/rsyslog.conf，增加
+
+local2.*	/var/log/haproxy.log
