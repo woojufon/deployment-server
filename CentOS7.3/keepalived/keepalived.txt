@@ -5,7 +5,8 @@ yum -y install keepalived
 
 修改/etc/keepalived/keepalived.conf
 
-主
+主修改为
+
 global_defs {
    router_id a1
 }
@@ -38,7 +39,7 @@ vrrp_instance VI_1 {
     }
 }
 
-从
+从修改为
 
 global_defs {
    router_id a2

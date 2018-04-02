@@ -1,3 +1,6 @@
+
+主从全都执行：
+
 yum -y install haproxy
 
 修改/etc/sysctl.conf，增加
