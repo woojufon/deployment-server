@@ -3,6 +3,9 @@ yum -y install haproxy
 修改/etc/sysctl.conf，增加
 net.ipv4.ip_nonlocal_bind=1
 
+直接生效
+sysctl -p
+
 修改配置文件/etc/haproxy/haproxy.cfg，增加
 
 listen mysql_cluster

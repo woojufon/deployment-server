@@ -72,3 +72,6 @@ systemctl start keepalived
 
 修改/etc/selinux/config
 SELINUX=disabled
+
+直接生效
+setenforce 0 

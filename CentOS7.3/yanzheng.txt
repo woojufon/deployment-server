@@ -10,3 +10,7 @@
 1、使用其他端口例如3307，成功对应主库
 2、停掉主库mysql，成功对应从库
 3、打开主库mysql，成功对应主库
+
+
+https://tech.meituan.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E8%BF%9B%E4%B8%8E%E8%AE%BE%E6%83%B3.html
+https://www.percona.com/blog/2016/06/07/choosing-mysql-high-availability-solutions/?from=timeline&isappinstalled=0
