@@ -1,0 +1,50 @@
+
+1、安装java
+2、停止防火墙
+systemctl disable firewalld
+systemctl stop firewalld
+
+3、安装elasticsearch
+
+rpm --install elasticsearch-6.2.3.rpm
+
+/bin/systemctl daemon-reload
+
+/bin/systemctl enable elasticsearch.service
+
+systemctl start elasticsearch.service
+
+修改/etc/elasticsearch/elasticsearch.yml
+
+network.host: 0.0.0.0
+
+访问http://ip:9200
+
+4、安装kibana
+
+rpm --install kibana-6.2.3-x86_64.rpm
+
+/bin/systemctl daemon-reload
+/bin/systemctl enable kibana.service
+
+systemctl start kibana.service
+
+修改/etc/kibana/kibana.yml
+
+server.host: "0.0.0.0"
+elasticsearch.url: "http://192.168.31.170:9200"
+
+访问http://ip:5601
+
+5、安装
+
+rpm --install logstash-6.2.3.rpm
+
+systemctl enable logstash.service
+
+systemctl start logstash.service
+
+
+
+
+
