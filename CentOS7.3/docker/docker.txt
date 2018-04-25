@@ -197,7 +197,7 @@
 
 	docker pull nginx:1.10.3
 
-	docker run -p 80:80 443:443 --name nginx -v /home/nginx/nginx.conf:/etc/nginx/nginx.conf -v /home/nginx/conf.d:/etc/nginx/conf.d -v /home/nginx/log:/var/log/nginx  -d nginx:1.10.3
+	docker run -p 80:80 --name nginx -v /home/nginx/nginx.conf:/etc/nginx/nginx.conf -v /home/nginx/conf.d:/etc/nginx/conf.d -v /home/nginx/log:/var/log/nginx  -d nginx:1.10.3
 
 	-p 80:80：将容器的80端口映射到主机的80端口
 
@@ -224,9 +224,9 @@ cat /etc/redhat-release
 33、拷文件（必须是启动的才能拷贝）
 
 docker cp af2c3e64cf09:/etc/nginx /home/nginx/conf
-docker cp cb828192c9ce:/usr/local/tomcat/webapps /home/tomcat
-docker cp cb828192c9ce:/usr/local/tomcat/conf /home/tomcat
-docker cp cb828192c9ce:/usr/local/tomcat/bin /home/tomcat
+docker cp ca32dcc37123:/usr/local/tomcat/webapps /home/tomcat
+docker cp ca32dcc37123:/usr/local/tomcat/conf /home/tomcat
+docker cp ca32dcc37123:/usr/local/tomcat/bin /home/tomcat
 
 docker cp 9d2df88442c8:/etc/mysql /home
 
