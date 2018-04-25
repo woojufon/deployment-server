@@ -230,6 +230,15 @@ docker cp ca32dcc37123:/usr/local/tomcat/bin /home/tomcat
 
 docker cp 9d2df88442c8:/etc/mysql /home
 
+34、查看docker容器内存
+
+docker stats 
+docker stats tomcat
+
+35、设置内存
+
+-m 1g
+-m 512m
 
 
 7、创建mysql-rc.yaml文件放入home下
