@@ -1,57 +1,211 @@
 1、设置/etc/selinux/config
-SELINUX=disabled
+
+	SELINUX=disabled
+
 2、关闭防火墙
-systemctl disable firewalld
-systemctl stop firewalld
 
-3、
-yum -y install etcd kubernetes
+	systemctl disable firewalld
+	systemctl stop firewalld
 
-systemctl start etcd
-systemctl start docker
-systemctl start kube-apiserver
-systemctl start kube-controller-manager
-systemctl start kube-scheduler
-systemctl start kubelet
-systemctl start kube-proxy
+3、安装kubernetes
 
-4、修改配置文件etc/docker/daemon.json
-{
-"registry-mirrors": ["http://hub-mirror.c.163.com"]
-}
-重启docker
+	yum -y install etcd kubernetes
 
-5、下载mysql
+	systemctl start etcd
+	systemctl start docker
+	systemctl start kube-apiserver
+	systemctl start kube-controller-manager
+	systemctl start kube-scheduler
+	systemctl start kubelet
+	systemctl start kube-proxy
 
-docker pull mysql:5.6
+4、修改配置文件etc/docker/daemon.json，重启docker
 
-6、查看
-
-docker images |grep mysql
+	{
+	"registry-mirrors": ["http://hub-mirror.c.163.com"]
+	}
 
 
 
-docker run -p 3306:3306 --name mymysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/mysql_data -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6
+5、下载mysql，centos
 
--p 3306:3306：将容器的3306端口映射到主机的3306端口
+	docker pull mysql:5.6
+	docker pull centos:7.3.1611
 
--v $PWD/conf:/etc/mysql/conf.d：将主机当前目录下的conf/my.cnf挂载到容器的/etc/mysql/my.cnf
+6、进入centos
 
--v $PWD/logs:/logs：将主机当前目录下的logs目录挂载到容器的/logs
+	docker run -i -t centos:7.3.1611 /bin/bash
 
--v $PWD/data:/mysql_data：将主机当前目录下的data目录挂载到容器的/mysql_data
+	Ctrl+D退出
 
--e MYSQL_ROOT_PASSWORD=123456：初始化root用户的密码
+	-t:在新容器内指定一个伪终端或终端。
 
-docker stop mymysql
+	-i:允许你对容器内的标准输入 (STDIN) 进行交互。
 
-docker start mymysql
+7、后台运行
 
-docker rm mymysql
+	docker run -d centos:7.3.1611 /bin/sh -c "while true; do echo hello world; sleep 1; done"
 
-docker images
+8、查看运行容器
 
-docker ps
+	docker ps
+
+9、log
+
+	docker logs f626f480547c
+	docker logs epic_carson
+
+10、停止容器
+
+	docker stop epic_carson
+
+11、查看镜像
+
+	docker images |grep mysql
+
+12、启动一个web项目
+
+	docker pull training/webapp
+	docker run -d -P training/webapp python app.py
+
+	-d:让容器在后台运行。
+
+	-P:将容器内部使用的网络端口映射到我们使用的主机上
+
+13、制定端口运行
+
+	docker run -d -p 5000:5000 training/webapp python app.py
+
+14、查端口
+
+	docker port elated_sinoussi
+
+15、打日志
+
+	docker logs -f 7a38a1ad55c6
+	-f:让 dokcer logs 像使用 tail -f 一样来输出容器内部的标准输出。
+
+16、查看进程
+
+	docker top elated_sinoussi
+
+17、查状态
+
+	docker inspect elated_sinoussi
+
+18、启动
+
+	docker start elated_sinoussi
+
+19、移除
+
+	docker rm elated_sinoussi
+
+20、查找镜像
+
+	docker search httpd
+
+21、升级版本并打成新镜像
+
+	docker run -i -t centos:7.3.1611 /bin/bash
+	yum update
+	docker commit -m="has update" -a="xuepeng" 1757ad1eb306 xuepeng/ubuntu:v2
+
+	-m:提交的描述信息
+
+	-a:指定镜像作者
+
+	e218edb10161：容器ID
+
+	xuepeng/centos:v2:指定要创建的目标镜像名
+
+	docker run -t -i xuepeng/ubuntu:v2 /bin/bash
+
+22、构建镜像
+
+	cat Dockerfile
+
+	docker build -t runoob/centos:6.7 .
+
+	-t ：指定要创建的目标镜像名
+
+	. ：Dockerfile 文件所在目录，可以指定Dockerfile 的绝对路径
+
+	验证
+	docker run -t -i runoob/centos:6.7  /bin/bash
+	id runoob
+
+
+23、打tag版本
+
+	docker images 查看id
+
+	docker tag ff2b9c5fd149 runoob/centos:dev
+
+	容器连接
+
+	-P :是容器内部端口随机映射到主机的高端口。
+	-p : 是容器内部端口绑定到指定的主机端口。
+
+	docker run -d -p 192.168.12.120:5001:5000 training/webapp python app.py
+
+	docker run -d -p 192.168.12.120:5000:5000/udp training/webapp python app.py
+
+24、Dockerfile安装mysql
+
+	docker build -t mysql .
+
+25、启动mysql
+
+	docker run -p 3306:3306 --name mymysql -v $PWD/mysql/conf:/etc/mysql/conf.d -v $PWD/mysql/logs:/logs -v $PWD/mysql/data:/mysql_data -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6
+
+	-p 3306:3306：将容器的3306端口映射到主机的3306端口
+
+	-v -v $PWD/conf:/etc/mysql/conf.d：将主机当前目录下的conf/my.cnf挂载到容器的/etc/mysql/my.cnf
+
+	-v $PWD/logs:/logs：将主机当前目录下的logs目录挂载到容器的/logs
+
+	-v $PWD/data:/mysql_data：将主机当前目录下的data目录挂载到容器的/mysql_data
+
+	-e MYSQL_ROOT_PASSWORD=123456：初始化root用户的密码
+	
+	docker run -p 3307:3306 --name mymysql1 -v $PWD/mysql1/conf:/etc/mysql/conf.d -v $PWD/mysql1/logs:/logs -v $PWD/mysql1/data:/mysql_data -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6
+
+26、Dockerfile安装tomcat
+
+	docker build -t tomcat .
+
+27、pull安装nginx
+
+	docker pull tomcat:8.0.51
+
+	docker run --name tomcat -p 8081:8080 -v $PWD/test:/usr/local/tomcat/webapps/test -d tomcat:8.0.51
+	docker run --name tomcat1 -p 8082:8080 -v $PWD/test2:/usr/local/tomcat/webapps/test -d tomcat:8.0.51
+
+	-p 8080:8080：将容器的8080端口映射到主机的8080端口
+
+	-v $PWD/test:/usr/local/tomcat/webapps/test：将主机中当前目录下的test挂载到容器的/test
+
+28、安装nginx
+
+	docker build -t nginx .
+
+29、pull安装nginx
+
+	docker pull nginx:1.12.2
+
+	docker run -p 80:80 --name mynginx -v $PWD/www:/www -v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf -v $PWD/logs:/wwwlogs  -d nginx:1.12.2
+
+	-p 80:80：将容器的80端口映射到主机的80端口
+
+	--name mynginx：将容器命名为mynginx
+
+	-v $PWD/www:/www：将主机中当前目录下的www挂载到容器的/www
+
+	-v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf：将主机中当前目录下的nginx.conf挂载到容器的/etc/nginx/nginx.conf
+
+	-v $PWD/logs:/wwwlogs：将主机中当前目录下的logs挂载到容器的/wwwlogs
+
 
 7、创建mysql-rc.yaml文件放入home下
 
