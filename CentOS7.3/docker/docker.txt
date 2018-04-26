@@ -211,35 +211,58 @@
 
 30、
 
-docker run -i -t -v /home/centos/:/home/ centos:7.3.1611 /bin/bash
+	docker run -i -t -v /home/centos/:/home/ centos:7.3.1611 /bin/bash
 
 31、进入已启动的容器
 
-docker attach naughty_allen
+	docker attach naughty_allen
 
 32、在内部查看操作系统版本
 
-cat /etc/redhat-release
+	cat /etc/*release*
 
 33、拷文件（必须是启动的才能拷贝）
 
-docker cp af2c3e64cf09:/etc/nginx /home/nginx/conf
-docker cp ca32dcc37123:/usr/local/tomcat/webapps /home/tomcat
-docker cp ca32dcc37123:/usr/local/tomcat/conf /home/tomcat
-docker cp ca32dcc37123:/usr/local/tomcat/bin /home/tomcat
+	docker cp af2c3e64cf09:/etc/nginx /home/nginx/conf
+	docker cp ca32dcc37123:/usr/local/tomcat/webapps /home/tomcat
+	docker cp ca32dcc37123:/usr/local/tomcat/conf /home/tomcat
+	docker cp ca32dcc37123:/usr/local/tomcat/bin /home/tomcat
 
-docker cp 9d2df88442c8:/etc/mysql /home
+	docker cp 9d2df88442c8:/etc/mysql /home
 
 34、查看docker容器内存
 
-docker stats 
-docker stats tomcat
+	docker stats 
+	docker stats tomcat
 
 35、设置内存
 
--m 1g
--m 512m
+	-m 1g
+	-m 512m
+	
+36、安装redis
 
+	docker pull redis:3.2.11
+	
+	docker run -p 6379:6379 -v /home/redis:/data  -d redis:3.2.11 redis-server --appendonly yes
+	
+	docker exec -it 66b8d1d08062 redis-cli
+	
+
+36、运行jenkins（未试验）
+
+	docker run --rm -u root -p 8082:8080 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v "$HOME":/home jenkinsci/blueocean
+
+37、打Centos+tomcat+sunjdk项目
+
+	docker run -i -t -v /home/centos:/home centos:7.3.1611 /bin/bash
+	
+	考入tomcat和jdk解压
+	
+	docker start 69ddeb8ffad4
+	docker attach 69ddeb8ffad4
+	
+	docker commit -m="has update" -a="xuepeng" ad88bdf343b6 xuepeng/centos:v1
 
 7、创建mysql-rc.yaml文件放入home下
 
