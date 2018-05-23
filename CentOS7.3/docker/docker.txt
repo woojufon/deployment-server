@@ -223,10 +223,10 @@
 
 33、拷文件（必须是启动的才能拷贝）
 
-	docker cp af2c3e64cf09:/etc/nginx /home/nginx/conf
-	docker cp ca32dcc37123:/usr/local/tomcat/webapps /home/tomcat
-	docker cp ca32dcc37123:/usr/local/tomcat/conf /home/tomcat
-	docker cp ca32dcc37123:/usr/local/tomcat/bin /home/tomcat
+	docker cp 2defbf514413:/etc/nginx /home
+	docker cp 7c60b44ef446:/usr/local/tomcat/webapps /home/tomcat
+	docker cp 7c60b44ef446:/usr/local/tomcat/conf /home/tomcat
+	docker cp 7c60b44ef446:/usr/local/tomcat/bin /home/tomcat
 
 	docker cp 9d2df88442c8:/etc/mysql /home
 
