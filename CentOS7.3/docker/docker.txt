@@ -188,6 +188,8 @@
 	-p 8080:8080：将容器的8080端口映射到主机的8080端口
 
 	-v $PWD/test:/usr/local/tomcat/webapps/test：将主机中当前目录下的test挂载到容器的/test
+	
+	docker run --name tomcat1 -p 8082:8080 -p 8001:8000 -v /home/tomcat1/webapps:/usr/local/tomcat/webapps -v /home/tomcat1/bin/catalina.sh:/usr/local/tomcat/bin/catalina.sh -v /home/tomcat1/conf/server.xml:/usr/local/tomcat/conf/server.xml -v /home/tomcat1/logs:/usr/local/tomcat/logs  -d tomcat:7.0.86
 
 28、安装nginx
 
@@ -216,6 +218,8 @@
 31、进入已启动的容器
 
 	docker attach naughty_allen
+	
+	docker exec -it 775c7c9ee1e1 /bin/bash 
 
 32、在内部查看操作系统版本
 
@@ -224,9 +228,9 @@
 33、拷文件（必须是启动的才能拷贝）
 
 	docker cp 2defbf514413:/etc/nginx /home
-	docker cp 7c60b44ef446:/usr/local/tomcat/webapps /home/tomcat
-	docker cp 7c60b44ef446:/usr/local/tomcat/conf /home/tomcat
-	docker cp 7c60b44ef446:/usr/local/tomcat/bin /home/tomcat
+	docker cp d90f71fbf323:/usr/local/tomcat/webapps /home/tomcat1
+	docker cp d90f71fbf323:/usr/local/tomcat/conf /home/tomcat1
+	docker cp d90f71fbf323:/usr/local/tomcat/bin /home/tomcat1
 
 	docker cp 9d2df88442c8:/etc/mysql /home
 
