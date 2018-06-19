@@ -270,6 +270,14 @@
 
 7、创建mysql-rc.yaml文件放入home下
 
+更新
+
+apt-get update
+
+安装
+
+apt-get install vim
+
 8、
 kubectl create -f mysql-rc.yaml
 
