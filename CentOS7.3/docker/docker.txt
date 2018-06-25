@@ -267,6 +267,11 @@
 	docker attach 69ddeb8ffad4
 	
 	docker commit -m="has update" -a="xuepeng" ad88bdf343b6 xuepeng/centos:v1
+	
+38、docker 安装rabbitmq
+
+
+docker run --name rabbit -p 8080:15672 -p 5672:5672 -d rabbitmq:3-management
 
 7、创建mysql-rc.yaml文件放入home下
 
