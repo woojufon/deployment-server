@@ -28,7 +28,7 @@ http://ip:8080/cat
 账号密码catadmin
 
 
-6、时间必须同步
+6、时间必须同步（待定）
 
 yum -y install ntp
 ntpdate ntp1.aliyun.com
