@@ -1,299 +1,114 @@
-1¡¢ÉèÖÃ/etc/selinux/config
+1ã€è®¾ç½®/etc/selinux/config
 
 	SELINUX=disabled
 
-2¡¢¹Ø±Õ·À»ğÇ½
+2ã€å…³é—­é˜²ç«å¢™
 
 	systemctl disable firewalld
 	systemctl stop firewalld
+	
+3ã€å®‰è£…å¿…è¦å·¥å…·ä¸yum
 
-3¡¢°²×°kubernetes
+	yum install -y yum-utils device-mapper-persistent-data lvm2
+	yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
-	yum -y install etcd kubernetes
+4ã€å®‰è£…å¹¶å¯åŠ¨docker
 
-	systemctl start etcd
-	systemctl start docker
-	systemctl start kube-apiserver
-	systemctl start kube-controller-manager
-	systemctl start kube-scheduler
-	systemctl start kubelet
-	systemctl start kube-proxy
+	 yum -y install docker-ce
+	 
+	 systemctl start docker
+	 
+	 docker version
 
-4¡¢ĞŞ¸ÄÅäÖÃÎÄ¼şetc/docker/daemon.json£¬ÖØÆôdocker
+5ã€ä¿®æ”¹é…ç½®æ–‡ä»¶etc/docker/daemon.jsonï¼Œé‡å¯docker
 
 	{
-	"registry-mirrors": ["http://hub-mirror.c.163.com"]
+	  "registry-mirrors": ["http://hub-mirror.c.163.com"]
 	}
 
 
-
-5¡¢ÏÂÔØmysql£¬centos
+6ã€ä¸‹è½½dockeré•œåƒ
 
 	docker pull mysql:5.6.39
 	docker pull centos:7.3.1611
-
-6¡¢½øÈëcentos
-
-	docker run -i -t centos:7.3.1611 /bin/bash
-
-	Ctrl+DÍË³ö
-
-	-t:ÔÚĞÂÈİÆ÷ÄÚÖ¸¶¨Ò»¸öÎ±ÖÕ¶Ë»òÖÕ¶Ë¡£
-
-	-i:ÔÊĞíÄã¶ÔÈİÆ÷ÄÚµÄ±ê×¼ÊäÈë (STDIN) ½øĞĞ½»»¥¡£
-
-7¡¢ºóÌ¨ÔËĞĞ
-
-	docker run -d centos:7.3.1611 /bin/sh -c "while true; do echo hello world; sleep 1; done"
-
-8¡¢²é¿´ÔËĞĞÈİÆ÷
-
-	docker ps
-	docker ps -a
-
-9¡¢log
-
-	docker logs f626f480547c
-	docker logs epic_carson
-
-10¡¢Í£Ö¹ÈİÆ÷
-
-	docker stop epic_carson
-
-11¡¢²é¿´¾µÏñ
+	
+7ã€æŸ¥çœ‹é•œåƒ
 
 	docker images |grep mysql
 
-12¡¢Æô¶¯Ò»¸öwebÏîÄ¿
+	
+8ã€æŸ¥çœ‹è¿è¡Œå®¹å™¨
 
-	docker pull training/webapp
-	docker run -d -P training/webapp python app.py
+	
+	docker ps è¿è¡Œçš„å®¹å™¨
+	docker ps -a è¿è¡Œä¸æœªè¿è¡Œå®¹å™¨
 
-	-d:ÈÃÈİÆ÷ÔÚºóÌ¨ÔËĞĞ¡£
+9ã€åå°è¿è¡Œï¼Œä¸æ–­æ‰“æ—¥å¿—
 
-	-P:½«ÈİÆ÷ÄÚ²¿Ê¹ÓÃµÄÍøÂç¶Ë¿ÚÓ³Éäµ½ÎÒÃÇÊ¹ÓÃµÄÖ÷»úÉÏ
+	docker run -d centos:7.3.1611 /bin/sh -c "while true; do echo hello world; sleep 1; done"
 
-13¡¢ÖÆ¶¨¶Ë¿ÚÔËĞĞ
+10ã€log
 
-	docker run -d -p 5000:5000 training/webapp python app.py
+	docker logs 56530b436265
+	docker logs -f 56530b436265
 
-14¡¢²é¶Ë¿Ú
+11ã€åœæ­¢å®¹å™¨
 
-	docker port elated_sinoussi
+	docker stop epic_carson
 
-15¡¢´òÈÕÖ¾
-
-	docker logs -f 7a38a1ad55c6
-	-f:ÈÃ dokcer logs ÏñÊ¹ÓÃ tail -f Ò»ÑùÀ´Êä³öÈİÆ÷ÄÚ²¿µÄ±ê×¼Êä³ö¡£
-
-16¡¢²é¿´½ø³Ì
-
-	docker top elated_sinoussi
-
-17¡¢²é×´Ì¬
-
-	docker inspect elated_sinoussi
-
-18¡¢Æô¶¯
-
-	docker start elated_sinoussi
-
-19¡¢ÒÆ³ı
+12ã€ç§»é™¤å®¹å™¨
 
 	docker rm elated_sinoussi
-	ÒÆ³ı¾µÏñ
-	docker rmi mysql:5.6
+	
+13ã€ç§»é™¤é•œåƒ
 
-20¡¢²éÕÒ¾µÏñ
+	docker rmi centos:7.3.1611
+
+14ã€å¯åŠ¨ä¸€ä¸ªdockerå®¹å™¨
+
+	docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6.39
+
+15ã€æŸ¥ç«¯å£
+
+	docker port 63a91e2a5881
+
+
+16ã€æŸ¥çœ‹è¿›ç¨‹
+
+	docker top 63a91e2a5881
+
+17ã€æŸ¥çŠ¶æ€
+
+	docker inspect 63a91e2a5881
+
+18ã€å¯åŠ¨
+
+	docker start mysql
+
+
+19ã€æŸ¥æ‰¾é•œåƒ
 
 	docker search httpd
 
-21¡¢Éı¼¶°æ±¾²¢´ò³ÉĞÂ¾µÏñ
+20ã€è¿›å…¥å·²å¯åŠ¨å®¹å™¨
 
-	docker run -i -t centos:7.3.1611 /bin/bash
-	yum update
-	docker commit -m="has update" -a="xuepeng" 1757ad1eb306 xuepeng/ubuntu:v2
-
-	-m:Ìá½»µÄÃèÊöĞÅÏ¢
-
-	-a:Ö¸¶¨¾µÏñ×÷Õß
-
-	e218edb10161£ºÈİÆ÷ID
-
-	xuepeng/centos:v2:Ö¸¶¨Òª´´½¨µÄÄ¿±ê¾µÏñÃû
-
-	docker run -t -i xuepeng/ubuntu:v2 /bin/bash
-
-22¡¢¹¹½¨¾µÏñ
-
-	cat Dockerfile
-
-	docker build -t runoob/centos:6.7 .
-
-	-t £ºÖ¸¶¨Òª´´½¨µÄÄ¿±ê¾µÏñÃû
-
-	. £ºDockerfile ÎÄ¼şËùÔÚÄ¿Â¼£¬¿ÉÒÔÖ¸¶¨Dockerfile µÄ¾ø¶ÔÂ·¾¶
-
-	ÑéÖ¤
-	docker run -t -i runoob/centos:6.7  /bin/bash
-	id runoob
-
-
-23¡¢´òtag°æ±¾
-
-	docker images ²é¿´id
-
-	docker tag ff2b9c5fd149 runoob/centos:dev
-
-	ÈİÆ÷Á¬½Ó
-
-	-P :ÊÇÈİÆ÷ÄÚ²¿¶Ë¿ÚËæ»úÓ³Éäµ½Ö÷»úµÄ¸ß¶Ë¿Ú¡£
-	-p : ÊÇÈİÆ÷ÄÚ²¿¶Ë¿Ú°ó¶¨µ½Ö¸¶¨µÄÖ÷»ú¶Ë¿Ú¡£
-
-	docker run -d -p 192.168.12.120:5001:5000 training/webapp python app.py
-
-	docker run -d -p 192.168.12.120:5000:5000/udp training/webapp python app.py
-
-24¡¢Dockerfile°²×°mysql
-
-	docker build -t mysql .
-
-25¡¢Æô¶¯mysql
-
-	docker run -p 3306:3306 --name mysql -v /home/mysql:/etc/mysql -v /home/mysql/log:/var/log/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6.39
-
-	-p 3306:3306£º½«ÈİÆ÷µÄ3306¶Ë¿ÚÓ³Éäµ½Ö÷»úµÄ3306¶Ë¿Ú
-
-	-v -v $PWD/conf:/etc/mysql/conf.d£º½«Ö÷»úµ±Ç°Ä¿Â¼ÏÂµÄconf/my.cnf¹ÒÔØµ½ÈİÆ÷µÄ/etc/mysql/my.cnf
-
-	-v $PWD/logs:/logs£º½«Ö÷»úµ±Ç°Ä¿Â¼ÏÂµÄlogsÄ¿Â¼¹ÒÔØµ½ÈİÆ÷µÄ/logs
-
-	-v $PWD/data:/mysql_data£º½«Ö÷»úµ±Ç°Ä¿Â¼ÏÂµÄdataÄ¿Â¼¹ÒÔØµ½ÈİÆ÷µÄ/mysql_data
-
-	-e MYSQL_ROOT_PASSWORD=123456£º³õÊ¼»¯rootÓÃ»§µÄÃÜÂë
+	docker exec -it e54f52908cc4 /bin/bash
 	
-	docker run -p 3307:3306 --name mymysql1 -v $PWD/mysql1/conf:/etc/mysql/conf.d -v $PWD/mysql1/logs:/logs -v $PWD/mysql1/data:/mysql_data -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6
-
-26¡¢Dockerfile°²×°tomcat
-
-	docker build -t tomcat .
-
-27¡¢pull°²×°tomcat
-
-	docker pull tomcat:7.0.86
-
-	docker run --name tomcat -p 8081:8080 -p 8000:8000 -v /home/tomcat/webapps:/usr/local/tomcat/webapps -v /home/tomcat/bin/catalina.sh:/usr/local/tomcat/bin/catalina.sh -v /home/tomcat/conf/server.xml:/usr/local/tomcat/conf/server.xml -v /home/tomcat/logs:/usr/local/tomcat/logs  -d tomcat:7.0.86
-	
-
-	-p 8080:8080£º½«ÈİÆ÷µÄ8080¶Ë¿ÚÓ³Éäµ½Ö÷»úµÄ8080¶Ë¿Ú
-
-	-v $PWD/test:/usr/local/tomcat/webapps/test£º½«Ö÷»úÖĞµ±Ç°Ä¿Â¼ÏÂµÄtest¹ÒÔØµ½ÈİÆ÷µÄ/test
-	
-	docker run --name tomcat1 -p 8081:8080 -p 8000:8000 -v /home/tomcat1/webapps:/usr/local/tomcat/webapps -v /home/tomcat1/data:/data -v /home/tomcat1/bin/catalina.sh:/usr/local/tomcat/bin/catalina.sh -v /home/tomcat1/conf/server.xml:/usr/local/tomcat/conf/server.xml -v /home/tomcat1/logs:/usr/local/tomcat/logs  -d tomcat:7.0.86
-
-28¡¢°²×°nginx
-
-	docker build -t nginx .
-
-29¡¢pull°²×°nginx
-
-	docker pull nginx:1.10.3
-
-	docker run -p 80:80 --name nginx -v /home/nginx/nginx.conf:/etc/nginx/nginx.conf -v /home/nginx/conf.d:/etc/nginx/conf.d -v /home/nginx/log:/var/log/nginx  -d nginx:1.10.3
-
-	-p 80:80£º½«ÈİÆ÷µÄ80¶Ë¿ÚÓ³Éäµ½Ö÷»úµÄ80¶Ë¿Ú
-
-	--name mynginx£º½«ÈİÆ÷ÃüÃûÎªmynginx
-
-	-v $PWD/www:/www£º½«Ö÷»úÖĞµ±Ç°Ä¿Â¼ÏÂµÄwww¹ÒÔØµ½ÈİÆ÷µÄ/www
-
-	-v $PWD/conf/nginx.conf:/etc/nginx/nginx.conf£º½«Ö÷»úÖĞµ±Ç°Ä¿Â¼ÏÂµÄnginx.conf¹ÒÔØµ½ÈİÆ÷µÄ/etc/nginx/nginx.conf
-
-	-v $PWD/logs:/wwwlogs£º½«Ö÷»úÖĞµ±Ç°Ä¿Â¼ÏÂµÄlogs¹ÒÔØµ½ÈİÆ÷µÄ/wwwlogs
-
-30¡¢
-
-	docker run -i -t -v /home/centos/:/home/ centos:7.3.1611 /bin/bash
-
-31¡¢½øÈëÒÑÆô¶¯µÄÈİÆ÷
-
-	docker attach naughty_allen
-	
-	docker exec -it c4a4fd062cdc /bin/bash 
-
-32¡¢ÔÚÄÚ²¿²é¿´²Ù×÷ÏµÍ³°æ±¾
-
+	æŸ¥çœ‹æ“ä½œç³»ç»Ÿç‰ˆæœ¬
 	cat /etc/*release*
+	
+21ã€æ‹·è´å®¹å™¨å†…çš„æ–‡ä»¶
 
-33¡¢¿½ÎÄ¼ş£¨±ØĞëÊÇÆô¶¯µÄ²ÅÄÜ¿½±´£©
-
+	docker cp e7566eab5c9d:/etc/mysql /root/mysql
 	docker cp 2defbf514413:/etc/nginx /home
 	docker cp 6201b1101b34:/usr/local/tomcat/webapps /home/tomcat1/webapps
 	docker cp 6201b1101b34:/usr/local/tomcat/conf /home/tomcat1
 	docker cp 6201b1101b34:/usr/local/tomcat/bin /home/tomcat1
-
-	docker cp 9d2df88442c8:/etc/mysql /home
-
-34¡¢²é¿´dockerÈİÆ÷ÄÚ´æ
-
-	docker stats 
-	docker stats tomcat
-
-35¡¢ÉèÖÃÄÚ´æ
-
-	-m 1g
-	-m 512m
 	
-36¡¢°²×°redis
+22ã€æŸ¥çœ‹å†…å­˜å ç”¨ç‡
 
-	docker pull redis:3.2.11
+	docker stats
+	docker stats mysql
 	
-	docker run -p 6379:6379 -v /home/redis:/data  -d redis:3.2.11 redis-server --appendonly yes
 	
-	docker exec -it 66b8d1d08062 redis-cli
 	
-
-36¡¢ÔËĞĞjenkins£¨Î´ÊÔÑé£©
-
-	docker run --rm -u root -p 8082:8080 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v "$HOME":/home jenkinsci/blueocean
-
-37¡¢´òCentos+tomcat+sunjdkÏîÄ¿
-
-	docker run -i -t -v /home/centos:/home centos:7.3.1611 /bin/bash
-	
-	¿¼ÈëtomcatºÍjdk½âÑ¹
-	
-	docker start 69ddeb8ffad4
-	docker attach 69ddeb8ffad4
-	
-	docker commit -m="has update" -a="xuepeng" ad88bdf343b6 xuepeng/centos:v1
-	
-38¡¢docker °²×°rabbitmq
-
-
-docker run --name rabbit -p 8080:15672 -p 5672:5672 -d rabbitmq:3-management
-
-7¡¢´´½¨mysql-rc.yamlÎÄ¼ş·ÅÈëhomeÏÂ
-
-¸üĞÂ
-
-apt-get update
-
-°²×°
-
-apt-get install vim
-
-8¡¢
-kubectl create -f mysql-rc.yaml
-
-kubectl delete -f mysql-rc.yaml
-
-kubectl get rc
-kubectl get pods
-
-kubectl run mymysql1 --image=mysql:5.6 --replicas=1 --port=3306
-
-kubectl get deployments
-kubectl delete deployment mymysql1
-
-kubectl apply -f nginx-deployment.yaml

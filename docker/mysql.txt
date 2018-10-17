@@ -1,0 +1,32 @@
+
+
+
+启动mysql
+
+1、先启动一个mysql
+
+docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6.39
+
+2、拷贝mysql的内容
+
+docker cp e7566eab5c9d:/etc/mysql /home/mysql/conf
+docker cp e7566eab5c9d:/var/log/mysql /home/mysql/log
+docker cp e7566eab5c9d:/var/lib/mysql /home/mysql/data
+
+3、启动挂在配置的mysql
+
+
+docker run -p 3306:3306 --name mysql -v /home/mysql:/etc/mysql -v /home/mysql/log:/var/log/mysql -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6.39
+
+	-p 3306:3306
+
+	-v /home/mysql:/etc/mysql
+
+	-v /home/mysql/log:/var/log/mysql
+	
+	-v /home/mysql/data:/var/lib/mysql
+
+	-e MYSQL_ROOT_PASSWORD=123456
+	
+	
+	

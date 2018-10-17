@@ -1,0 +1,22 @@
+
+
+
+启动tomcat
+
+1、先启动一个tomcat
+
+docker run -p 8880:8080 --name tomcat -d tomcat:7.0.86
+
+2、拷贝tomcat的内容
+
+docker cp 94f71261840f:/usr/local/tomcat/webapps /home/tomcat/webapps
+docker cp 94f71261840f:/usr/local/tomcat/conf /home/tomcat
+docker cp 94f71261840f:/usr/local/tomcat/bin /home/tomcat
+
+3、启动挂在配置的tomcat
+
+
+docker run --name tomcat -p 8880:8080 -p 8000:8000 -v /home/tomcat/webapps:/usr/local/tomcat/webapps -v /home/tomcat/bin/catalina.sh:/usr/local/tomcat/bin/catalina.sh -v /home/tomcat/conf/server.xml:/usr/local/tomcat/conf/server.xml -v /home/tomcat/logs:/usr/local/tomcat/logs  -d tomcat:7.0.86
+
+	
+	

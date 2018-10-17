@@ -1,0 +1,126 @@
+
+	
+
+21、升级版本并打成新镜像
+
+	docker run -i -t centos:7.3.1611 /bin/bash
+	yum update
+	docker commit -m="has update" -a="xuepeng" 1757ad1eb306 xuepeng/ubuntu:v2
+
+	-m:提交的描述信息
+
+	-a:指定镜像作者
+
+	e218edb10161：容器ID
+
+	xuepeng/centos:v2:指定要创建的目标镜像名
+
+	docker run -t -i xuepeng/ubuntu:v2 /bin/bash
+
+22、构建镜像
+
+	cat Dockerfile
+
+	docker build -t runoob/centos:6.7 .
+
+	-t ：指定要创建的目标镜像名
+
+	. ：Dockerfile 文件所在目录，可以指定Dockerfile 的绝对路径
+
+	验证
+	docker run -t -i runoob/centos:6.7  /bin/bash
+	id runoob
+
+
+23、打tag版本
+
+	docker images 查看id
+
+	docker tag ff2b9c5fd149 runoob/centos:dev
+
+	容器连接
+
+	-P :是容器内部端口随机映射到主机的高端口。
+	-p : 是容器内部端口绑定到指定的主机端口。
+
+	docker run -d -p 192.168.12.120:5001:5000 training/webapp python app.py
+
+	docker run -d -p 192.168.12.120:5000:5000/udp training/webapp python app.py
+
+24、Dockerfile安装mysql
+
+	docker build -t mysql .
+
+
+
+26、Dockerfile安装tomcat
+
+	docker build -t tomcat .
+
+
+
+28、安装nginx
+
+	docker build -t nginx .
+
+
+
+30、
+
+	docker run -i -t -v /home/centos/:/home/ centos:7.3.1611 /bin/bash
+
+
+	
+36、安装redis
+
+	docker pull redis:3.2.11
+	
+	docker run -p 6379:6379 -v /home/redis:/data  -d redis:3.2.11 redis-server --appendonly yes
+	
+	docker exec -it 66b8d1d08062 redis-cli
+	
+
+36、运行jenkins（未试验）
+
+	docker run --rm -u root -p 8082:8080 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v "$HOME":/home jenkinsci/blueocean
+
+37、打Centos+tomcat+sunjdk项目
+
+	docker run -i -t -v /home/centos:/home centos:7.3.1611 /bin/bash
+	
+	考入tomcat和jdk解压
+	
+	docker start 69ddeb8ffad4
+	docker attach 69ddeb8ffad4
+	
+	docker commit -m="has update" -a="xuepeng" ad88bdf343b6 xuepeng/centos:v1
+	
+38、docker 安装rabbitmq
+
+
+docker run --name rabbit -p 8080:15672 -p 5672:5672 -d rabbitmq:3-management
+
+7、创建mysql-rc.yaml文件放入home下
+
+更新
+
+apt-get update
+
+安装
+
+apt-get install vim
+
+8、
+kubectl create -f mysql-rc.yaml
+
+kubectl delete -f mysql-rc.yaml
+
+kubectl get rc
+kubectl get pods
+
+kubectl run mymysql1 --image=mysql:5.6 --replicas=1 --port=3306
+
+kubectl get deployments
+kubectl delete deployment mymysql1
+
+kubectl apply -f nginx-deployment.yaml
