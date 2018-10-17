@@ -1,49 +1,49 @@
-×¢Òâ£º²»ÓÃ¹Ø±ÕÔ­ÏÈ¼¯Èº»·¾³·şÎñ
+æ³¨æ„ï¼šä¸ç”¨å…³é—­åŸå…ˆé›†ç¾¤ç¯å¢ƒæœåŠ¡
 
 
-1¡¢°²×°java
+1ã€å®‰è£…java
 
-2¡¢½«ÎÄ¼ş¿¼ÈëhomeÏÂ
+2ã€å°†æ–‡ä»¶è€ƒå…¥homeä¸‹
 tar zxvf hadoop-2.6.0.tar.gz
 
-3¡¢¹Ø±Õ·À»ğÇ½
+3ã€å…³é—­é˜²ç«å¢™
 systemctl disable firewalld
 systemctl stop firewalld
 
-4¡¢ĞŞ¸Ä/etc/hostnameÎª s3
+4ã€ä¿®æ”¹/etc/hostnameä¸º s3
 
-5¡¢£¨ËùÓĞ½Úµã£©ĞŞ¸Ä/etc/hosts£¬Ôö¼Ó
+5ã€ï¼ˆæ‰€æœ‰èŠ‚ç‚¹ï¼‰ä¿®æ”¹/etc/hostsï¼Œå¢åŠ 
 172.27.108.57 m1
 172.27.108.56 s1
 172.27.108.55 s2
 172.27.108.54 s3
 
-6¡¢ÖØÆôÍøÂç
+6ã€é‡å¯ç½‘ç»œ
 systemctl restart network.service
 
-7¡¢ssh¶Ï¿ªÖØÁ¬
+7ã€sshæ–­å¼€é‡è¿
 
 
 
 
-8¡¢°²×°ÉèÖÃssh
+8ã€å®‰è£…è®¾ç½®ssh
 
-ÈıÌ¨»úÆ÷¶¼ÉèÖÃssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
-ÈıÌ¨»úÆ÷¶¼ÉèÖÃcat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
-Ö÷»úÆ÷ÉèÖÃ
+ä¸‰å°æœºå™¨éƒ½è®¾ç½®ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+ä¸‰å°æœºå™¨éƒ½è®¾ç½®cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+ä¸»æœºå™¨è®¾ç½®
 scp ~/.ssh/authorized_keys 172.27.108.54:~/.ssh/
 
-9.£¨Ô­ËùÓĞ½Úµã[²»°üº¬ĞÂÔö½Úµã]Ö´ĞĞ£©
-	ĞŞ¸Ävi /home/hadoop-2.6.0/etc/hadoop/slaves
-	°ÑĞÂÔöµÄ½ÚµãÅäÖÃ½øÈ¥
-	s1£¨Ô­£©
-	s2£¨Ô­£©
-	xx£¨ĞÂÔö£©
+9.ï¼ˆåŸæ‰€æœ‰èŠ‚ç‚¹[ä¸åŒ…å«æ–°å¢èŠ‚ç‚¹]æ‰§è¡Œï¼‰
+	ä¿®æ”¹vi /home/hadoop-2.6.0/etc/hadoop/slaves
+	æŠŠæ–°å¢çš„èŠ‚ç‚¹é…ç½®è¿›å»
+	s1ï¼ˆåŸï¼‰
+	s2ï¼ˆåŸï¼‰
+	xxï¼ˆæ–°å¢ï¼‰
 
 
 
-10.(masterÉÏÖ´ĞĞ)
-	°ÑmasterµÄÅäÖÃ¿½±´µ½ĞÂÔö½Úµã
+10.(masterä¸Šæ‰§è¡Œ)
+	æŠŠmasterçš„é…ç½®æ‹·è´åˆ°æ–°å¢èŠ‚ç‚¹
 scp /home/hadoop-2.6.0/etc/hadoop/slaves root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/slaves
 scp /home/hadoop-2.6.0/etc/hadoop/core-site.xml root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/core-site.xml
 scp /home/hadoop-2.6.0/etc/hadoop/hadoop-env.sh root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/hadoop-env.sh
@@ -52,17 +52,17 @@ scp /home/hadoop-2.6.0/etc/hadoop/mapred-site.xml root@172.27.107.44:/home/hadoo
 scp /home/hadoop-2.6.0/etc/hadoop/yarn-env. root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/yarn-env.sh
 scp /home/hadoop-2.6.0/etc/hadoop/yarn-site.xml root@172.27.107.44:/home/hadoop-2.6.0/etc/hadoop/yarn-site.xml
 
-11.(ÔÚĞÂÔö½ÚµãÉÏÖ´ĞĞ)
-	ÔÚhadoop°²×°Ä¿Â¼ÏÂÊäÈë cd /home/hadoop-2.6.0
-	Æô¶¯datanode½ø³Ì £º sbin/hadoop-daemon.sh start datanode
-	£¨jps ¿´¿´ datanode½ø³ÌÆğÃ»ÆğÀ´£¬½øÈë50070¹ÜÀíÒ³Ãæ¿´¿´½Úµã¼ÓÃ»¼Ó½øÈ¥£©
-	Æô¶¯nodeManager½ø³Ì £º sbin/yarn-daemon.sh start nodemanager 
-	£¨jps ¿´¿´ nodeManager½ø³ÌÆğÃ»ÆğÀ´£©
+11.(åœ¨æ–°å¢èŠ‚ç‚¹ä¸Šæ‰§è¡Œ)
+	åœ¨hadoopå®‰è£…ç›®å½•ä¸‹è¾“å…¥ cd /home/hadoop-2.6.0
+	å¯åŠ¨datanodeè¿›ç¨‹ ï¼š sbin/hadoop-daemon.sh start datanode
+	ï¼ˆjps çœ‹çœ‹ datanodeè¿›ç¨‹èµ·æ²¡èµ·æ¥ï¼Œè¿›å…¥50070ç®¡ç†é¡µé¢çœ‹çœ‹èŠ‚ç‚¹åŠ æ²¡åŠ è¿›å»ï¼‰
+	å¯åŠ¨nodeManagerè¿›ç¨‹ ï¼š sbin/yarn-daemon.sh start nodemanager 
+	ï¼ˆjps çœ‹çœ‹ nodeManagerè¿›ç¨‹èµ·æ²¡èµ·æ¥ï¼‰
 	
-	¾ùºâ¿éÎÄ¼ş £º sbin/start-balancer.sh£¨Ã»ÓÃ£©
+	å‡è¡¡å—æ–‡ä»¶ ï¼š sbin/start-balancer.shï¼ˆæ²¡ç”¨ï¼‰
 
 
-12¡¢ÕıÖ÷½Úµã´ÓĞÂ£¨ÒÔºó¿ª»úÆô¶¯Ê±ĞèÒªÓÃµ½£©
+12ã€æ­£ä¸»èŠ‚ç‚¹ä»æ–°ï¼ˆä»¥åå¼€æœºå¯åŠ¨æ—¶éœ€è¦ç”¨åˆ°ï¼‰
 sbin/start-dfs.sh
 sbin/start-yarn.sh 
-×ßÒ»±éÁ÷³Ì£¬Ö÷¶¯µ÷ÓÃĞèÒªÊäÈëyes
+èµ°ä¸€éæµç¨‹ï¼Œä¸»åŠ¨è°ƒç”¨éœ€è¦è¾“å…¥yes

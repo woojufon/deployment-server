@@ -1,16 +1,16 @@
-1¡¢°²×°java
-2¡¢°²×°mysql
+1ã€å®‰è£…java
+2ã€å®‰è£…mysql
 
-2¡¢½âÑ¹ james-server-app-3.0.0-app.zip
-3¡¢½«confÎÄ¼ş¼ĞÅäÖÃºÃ¿¼ÈëÏàÓ¦Ä¿Â¼£¬Ö»¸ÄÊı¾İ¿âÁ´½ÓÅäÖÃ
-4¡¢±£ÕÏ25¶Ë¿Ú¿ÉÓÃ
+2ã€è§£å‹ james-server-app-3.0.0-app.zip
+3ã€å°†confæ–‡ä»¶å¤¹é…ç½®å¥½è€ƒå…¥ç›¸åº”ç›®å½•ï¼Œåªæ”¹æ•°æ®åº“é“¾æ¥é…ç½®
+4ã€ä¿éšœ25ç«¯å£å¯ç”¨
 systemctl stop postfix.service
 systemctl disable postfix.service
-5¡¢½¨Á¢Ò»¸öjamesÊı¾İ¿â£¬²»½¨±í
-6¡¢½øÈëbinÏÂ£¬Ö´ĞĞ./run.sh
+5ã€å»ºç«‹ä¸€ä¸ªjamesæ•°æ®åº“ï¼Œä¸å»ºè¡¨
+6ã€è¿›å…¥binä¸‹ï¼Œæ‰§è¡Œ./run.sh
 
-7¡¢×¢²á³É·şÎñ
-½«startjames.shÓëstopjames.sh¿¼Èëµ½¸ùÏÂ
+7ã€æ³¨å†ŒæˆæœåŠ¡
+å°†startjames.shä¸stopjames.shè€ƒå…¥åˆ°æ ¹ä¸‹
 chmod 777 startjames.sh
 chmod 777 stopjames.sh
 cp /home/james-server-app-3.0.0/james.service /etc/systemd/system
@@ -18,12 +18,12 @@ cp /home/james-server-app-3.0.0/james.service /etc/systemd/system
 systemctl enable james
 systemctl start james
 
-ÉèÖÃÈ¨ÏŞ
+è®¾ç½®æƒé™
 chmod 777 james-cli.sh
 
-8¡¢ÅäÖÃÓòÃû
+8ã€é…ç½®åŸŸå
 ./james-cli.sh -h localhost adddomain vip.threecss.com
-Ìí¼ÓÓÃ»§
+æ·»åŠ ç”¨æˆ·
 ./james-cli.sh  -h localhost adduser admin@vip.threecss.com 123456
 
 

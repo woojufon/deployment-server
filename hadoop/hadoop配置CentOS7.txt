@@ -1,97 +1,97 @@
-1¡¢°²×°java
+1ã€å®‰è£…java
 
-2¡¢½«ÎÄ¼ş¿¼ÈëhomeÏÂ
+2ã€å°†æ–‡ä»¶è€ƒå…¥homeä¸‹
 tar zxvf hadoop-2.6.0.tar.gz
 
-3¡¢¹Ø±Õ·À»ğÇ½
+3ã€å…³é—­é˜²ç«å¢™
 systemctl disable firewalld
 systemctl stop firewalld
 
-4¡¢ĞŞ¸Ä/etc/hostnameÎª m1 s1 s2...
+4ã€ä¿®æ”¹/etc/hostnameä¸º m1 s1 s2...
 
-5¡¢ĞŞ¸Ä/etc/hosts£¬Ôö¼Ó
+5ã€ä¿®æ”¹/etc/hostsï¼Œå¢åŠ 
 172.27.108.57 m1
 172.27.108.56 s1
 172.27.108.55 s2
 ...
 
-6¡¢ÖØÆôÍøÂç
+6ã€é‡å¯ç½‘ç»œ
 systemctl restart network.service
 
-7¡¢ssh¶Ï¿ªÖØÁ¬
+7ã€sshæ–­å¼€é‡è¿
 
-8¡¢°²×°ÉèÖÃssh
-ÈıÌ¨»úÆ÷¶¼ÉèÖÃssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
-ÈıÌ¨»úÆ÷¶¼ÉèÖÃcat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
-Ö÷»úÆ÷ÉèÖÃ
+8ã€å®‰è£…è®¾ç½®ssh
+ä¸‰å°æœºå™¨éƒ½è®¾ç½®ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+ä¸‰å°æœºå™¨éƒ½è®¾ç½®cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+ä¸»æœºå™¨è®¾ç½®
 scp ~/.ssh/authorized_keys 172.27.108.56:~/.ssh/
 scp ~/.ssh/authorized_keys 172.27.108.55:~/.ssh/
 
-ÒÔÉÏÃüÁîĞèÒªÊäÈëyesºÍÃÜÂë
+ä»¥ä¸Šå‘½ä»¤éœ€è¦è¾“å…¥yeså’Œå¯†ç 
 
 
-9¡¢ĞŞ¸ÄÅäÖÃ
+9ã€ä¿®æ”¹é…ç½®
 
-hdfsÎÄ¼ş¼Ğ
+hdfsæ–‡ä»¶å¤¹
 
-    ipµØÖ·¡¢javahome¡¢slaves
+    ipåœ°å€ã€javahomeã€slaves
 
-yanÎÄ¼ş¼Ğ
+yanæ–‡ä»¶å¤¹
 
-    ipµØÖ·¡¢javahome
+    ipåœ°å€ã€javahome
 
-½«Æä¿¼Èë/home/hadoop-2.6.0/etc/hadoopÏÂ
+å°†å…¶è€ƒå…¥/home/hadoop-2.6.0/etc/hadoopä¸‹
 
 
 
-10¡¢¸ñÊ½»¯½øÈëhadoop
+10ã€æ ¼å¼åŒ–è¿›å…¥hadoop
 bin/hdfs namenode -format
 
 
-11¡¢Æô¶¯
+11ã€å¯åŠ¨
 sbin/start-dfs.sh
 sbin/start-yarn.sh
 
-Æô¶¯¹ı³ÌÖĞ»áÊ§°Ü£¬ÖĞ¼äĞèÒªÊäÈëyes
-killµ÷java½ø³Ìºó£¬ÔÙ´ÎÆô¶¯¼´¿É
+å¯åŠ¨è¿‡ç¨‹ä¸­ä¼šå¤±è´¥ï¼Œä¸­é—´éœ€è¦è¾“å…¥yes
+killè°ƒjavaè¿›ç¨‹åï¼Œå†æ¬¡å¯åŠ¨å³å¯
 
-ĞèÒªÊäÈëjpsÈ·±£½ø³Ì
+éœ€è¦è¾“å…¥jpsç¡®ä¿è¿›ç¨‹
 m1 NameNode SecondaryNameNode ResourceManager
 s1 DataNode NodeManager
 s2 DataNode NodeManager
 
-¾ÍÊÇÆô¶¯³É¹¦ÁË
+å°±æ˜¯å¯åŠ¨æˆåŠŸäº†
 
 
-¹Ø±Õ
+å…³é—­
 sbin/stop-dfs.sh
 sbin/stop-yarn.sh
 
-12¡¢ÉèÖÃ·şÎñ£¬½«service¿¼ÈëhomeÏÂ
-Ö´ĞĞ
+12ã€è®¾ç½®æœåŠ¡ï¼Œå°†serviceè€ƒå…¥homeä¸‹
+æ‰§è¡Œ
 cshdfs.sh
 cshyarn.sh
 
 
 
-13¡¢²é¿´hadoopµÄ×´Ì¬
+13ã€æŸ¥çœ‹hadoopçš„çŠ¶æ€
 http://172.27.108.57:50070/
-²é¿´½ÚµãÊıÊÇ2¸ö¼´¿É
+æŸ¥çœ‹èŠ‚ç‚¹æ•°æ˜¯2ä¸ªå³å¯
 
-Untilities/Browse the file system ¿ÉÒÔ²é¿´ËùÓĞÎÄ¼ş
+Untilities/Browse the file system å¯ä»¥æŸ¥çœ‹æ‰€æœ‰æ–‡ä»¶
 
 
-Èç¹ûÏë±¾µØÏÂÔØÎÄ¼ş£¬ĞèÒªĞŞ¸ÄC:\Windows\System32\drivers\etc\hosts
-nameÓëipµÄÓ³Éä
+å¦‚æœæƒ³æœ¬åœ°ä¸‹è½½æ–‡ä»¶ï¼Œéœ€è¦ä¿®æ”¹C:\Windows\System32\drivers\etc\hosts
+nameä¸ipçš„æ˜ å°„
 
 172.27.108.57 m1
 
-14¡¢ÍøÂç¸ñÊ½±ØĞëÊÇÇÅÁ¬£¬Èç¹ûÊÇnatÄ£Ê½µÄ»°£¬datanodeÁ¬½Ó²»ÉÏnamenode
+14ã€ç½‘ç»œæ ¼å¼å¿…é¡»æ˜¯æ¡¥è¿ï¼Œå¦‚æœæ˜¯natæ¨¡å¼çš„è¯ï¼Œdatanodeè¿æ¥ä¸ä¸Šnamenode
 
-15¡¢ÖØÖÃhadoop
-/home/hdfs/ÀïµÄÎÄ¼şÒ²¶¼¿ÉÒÔÉ¾³ı
-/home/hadoop-2.6.0/logsÒ²¶¼¿ÉÒÔÉ¾³ı
-/tmp/ÀïÃæÓĞÒ»Ğ©hadoopÎÄ¼şjetty¡¢yarn¡¢hadoop¿ªÍ·µÄ¶¼¿ÉÒÔÉ¾³ı
+15ã€é‡ç½®hadoop
+/home/hdfs/é‡Œçš„æ–‡ä»¶ä¹Ÿéƒ½å¯ä»¥åˆ é™¤
+/home/hadoop-2.6.0/logsä¹Ÿéƒ½å¯ä»¥åˆ é™¤
+/tmp/é‡Œé¢æœ‰ä¸€äº›hadoopæ–‡ä»¶jettyã€yarnã€hadoopå¼€å¤´çš„éƒ½å¯ä»¥åˆ é™¤
 
 
 

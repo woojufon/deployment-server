@@ -1,22 +1,22 @@
-����hadoop��ͬ��Ⱥ֮�����ݵ�Ǩ�ƣ�ʹ��  hadoop distcp ���
+关于hadoop不同集群之间数据的迁移，使用  hadoop distcp 命令。
 
-��һ��ִ������
-��Դ��Ŀ�꼯Ⱥ����һ��ִ�У�
-��1�� cd /home/hadoop-2.6.0
+（一）执行命令
+在源或目标集群的任一方执行：
+（1） cd /home/hadoop-2.6.0
  (2) bin/hadoop distcp -overwrite hdfs://${souce_namenode}:9000/ hdfs://${dest_namenode}:9000/
-     ����${souce_namenode}�滻ΪԴ��Ⱥ��namenode������ip��${dest_namenode}�滻ΪĿ�꼯Ⱥ��namenode������ip����������Դ��Ⱥ���������ݸ��Ƶ�Ŀ�꼯Ⱥ�У�������ͬ���ļ��򸲸ǡ�
+     其中${souce_namenode}替换为源集群的namenode服务器ip，${dest_namenode}替换为目标集群的namenode服务器ip。上面的命令将源集群的所有数据复制到目标集群中，遇到相同的文件则覆盖。
 
-������ִ������
-�ɹ�ִ�����������Ҫ����������
-��1��Դ��Ŀ�����׼�Ⱥ����Ҫdfs����������hdfs://��ַ��ʶ����Ҫ������
-��2��ִ������һ���ļ�Ⱥ��Ҫyarn����hadoop distcp��Ŀ�꼯Ⱥ����Ҫ��map-reduce��
-��3��ִ������һ���ļ�Ⱥ��namenode�͸���datanode֮����Ҫʱ��ͬ��������map-reduce��Ҫ�󣩡�
-��4��ִ������һ���ļ�Ⱥ��mapred-site.xml��configuration��Ҫ����
+（二）执行条件
+成功执行上述命令，需要以下条件：
+（1）源和目标两套集群都需要dfs服务，命令中hdfs://地址的识别需要本服务。
+（2）执行命令一方的集群需要yarn服务，hadoop distcp在目标集群上需要做map-reduce。
+（3）执行命令一方的集群的namenode和各个datanode之间需要时间同步（这是map-reduce的要求）。
+（4）执行命令一方的集群的mapred-site.xml的configuration需要添加
      <property>
 		<name>mapred.map.tasks.speculative.execution</name>
 		<value>false</value>
 	</property>
-     ������yarn���񣬷���hadoop distcp �����ִ�н��δ֪��
- (5)��������
+     并重启yarn服务，否则hadoop distcp 命令的执行结果未知。
+ (5)创建链接
     ln -s ${JAVA_HOME}/bin/java /bin/java 
 	

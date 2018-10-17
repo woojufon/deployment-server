@@ -1,9 +1,9 @@
-ÀıÈç xxx@vip.threecss.com
-¿ÉÒÔ½âÎö³É mxbiz1.threecss.com
+ä¾‹å¦‚ xxx@vip.threecss.com
+å¯ä»¥è§£ææˆ mxbiz1.threecss.com
 
-ÔÚjamesÊı¾İ¿â×¢²áµÄÓòÃûÎªvip.threecss.com
+åœ¨jamesæ•°æ®åº“æ³¨å†Œçš„åŸŸåä¸ºvip.threecss.com
 
-²é¿´mx½âÎöÊÇ·ñ³É¹¦
+æŸ¥çœ‹mxè§£ææ˜¯å¦æˆåŠŸ
 nslookup
 set q=MX
 vip.threecss.com
