@@ -7,7 +7,9 @@ export PATH=${PATH}:${MAVEN_HOME}/bin
 
 3、项目配置Dockerfile
 
-FROM 192.168.12.242/spush/docker-alpine-java:1.8
+FROM 192.168.12.242/spush/docker-alpine-java:1.8-------本地镜像
+FROM openjdk:8-jdk-alpine------------dockerhub镜像
+FROM docker-alpine-java:1.8------------dockerhub镜像
 ADD springboot-test-1.0.0.jar /usr/app/
 ENV HOME /usr/app
 WORKDIR /usr/app/
@@ -19,4 +21,4 @@ mvn package docker:build -Dmaven.test.skip=true
 
 5、启动
 
-docker run --name springboot-test  -p 8881:80 -d springboot/springboot-test
+docker run --name springboot-test  -p 8881:8080 -d springboot/springboot-test:1.0.0
