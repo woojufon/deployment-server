@@ -1,0 +1,23 @@
+1、启动jenkins
+
+docker run --name jenkins -p 8080:8080 -p 50000:50000 jenkins/jenkins:2.89.4
+
+2、查看jenkins密码
+
+
+f3b2b2fa8b6f4e15bce85501aa08807b
+
+1、配置全局工具，安装Java和Maven，都选择自动安装,输入名字并选择相应版本
+2、管理插件，安装Maven Integration plugin
+3、配置Maven项目（git）
+配置丢弃旧的构建 10 10
+源码管理选择 git，并设置某项目路径：https://github.com/dianbaer/jenkins
+构建环境选中 Add timestamps to the Console Output
+Build 配置 clean package
+Post Steps 选择 Run only if build succeeds
+4、配置Maven项目svn
+选择Subversion
+配置路径http://192.168.4.6:8082/svn/TCSLBasePlatform/code/FrameWork/springboot-admin
+账号密码
+xuep
+{DAEBDC4B-549D-45A8-9152-F211DDA84DDE}
