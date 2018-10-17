@@ -1,7 +1,0 @@
-mvn clean package
-修改配置文件application.properties
-dubbo.registry.address=zookeeper://127.0.0.1:2181
-
-nohup java -jar dubbo-admin-0.0.1-SNAPSHOT.jar &
-
-账号密码都是 root

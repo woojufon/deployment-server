@@ -1,7 +1,0 @@
-cd incubator-dubbo-ops-master && mvn package
-cd dubbo-monitor-simple/target && tar xvf dubbo-monitor-simple-2.0.0-assembly.tar.gz
-cd dubbo-monitor-simple-2.0.0
-修改配置文件
-启动./assembly.bin/start.sh
-访问http://ip:8082/
-
