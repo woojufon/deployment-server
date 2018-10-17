@@ -1,2 +1,0 @@
-createrepo /home/mongodb
-
