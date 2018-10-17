@@ -6,4 +6,12 @@ rpm -Uvh /home/createrepo/createrepo-0.9.9-26.el7.noarch.rpm
 
 
 
+cat << EOF > /etc/yum.repos.d/test.repo
+[test]
+name=test
+baseurl=file:///home/test
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/PRM-GPG-KEY-CentOS-7
+enabled=1
 
+createrepo /home/test
