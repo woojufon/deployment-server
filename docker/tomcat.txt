@@ -18,5 +18,14 @@ docker cp 94f71261840f:/usr/local/tomcat/bin /home/tomcat
 
 docker run --name tomcat -p 8880:8080 -p 8000:8000 -v /home/tomcat/webapps:/usr/local/tomcat/webapps -v /home/tomcat/bin/catalina.sh:/usr/local/tomcat/bin/catalina.sh -v /home/tomcat/conf/server.xml:/usr/local/tomcat/conf/server.xml -v /home/tomcat/logs:/usr/local/tomcat/logs  -d tomcat:7.0.86
 
+
+catalina.sh增加
+
+JAVA_OPTS="-server -XX:PermSize=128m -XX:MaxPermSize=128m -Xms1g -Xmx1g -Xss1m -XX:+AlwaysPreTouch -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/usr/local/tomcat/logs -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/usr/local/tomcat/logs/gc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=32 -XX:GCLogFileSize=64m -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=8000 -Dcom.sun.management.jmxremote.rmi.port=8000 -Djava.rmi.server.hostname=192.168.12.243"
+
+server.xml修改
+
+<Connector port="8080" protocol="org.apache.coyote.http11.Http11NioProtocol" connectionTimeout="20000" redirectPort="8443" maxThreads="200" processorCache="200" minSpareThreads="100"  maxConnections="10240" acceptCount="10240" asyncTimeout="10000" acceptorThreadCount="1" compression="49152" compressableMimeType="text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/x-font-woff"/>
+
 	
 	
