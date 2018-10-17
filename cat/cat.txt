@@ -1,0 +1,34 @@
+1、打包
+mvn clean install -DskipTests
+
+2、建立数据库cat
+导入Cat.sql
+
+3、修改配置文件并放入/data/appdatas/cat下
+
+client.xml  客户端配置
+需要修改<server ip="192.168.12.243" port="2280" http-port="8080" />
+
+datasources.xml 数据库配置
+需要修改链接数据库属性
+
+server.xml 服务器配置
+修改<config local-mode="false" hdfs-machine="false" job-machine="true" alert-machine="true">
+local-mode不使用本地存储
+hdfs-machine不使用hdfs存储
+job-machine报告机只需有一台
+alert-machine报警机只需有一台
+
+4、启动项目
+将cat-home下面的war放入
+
+5、访问cat
+
+http://ip:8080/cat
+账号密码catadmin
+
+
+6、时间必须同步
+
+yum -y install ntp
+ntpdate ntp1.aliyun.com
