@@ -1,0 +1,46 @@
+1、jenkins2.89.4版本
+
+docker run --name jenkins -p 8081:8080 -p 50000:50000 jenkins/jenkins:2.89.4
+
+2、jenkins密码
+
+1c530b00e4e34f1a8899695f5d0e8764
+
+3、安装默认插件
+
+4、输入账号密码，别用root、admin之类的
+
+5、系统管理->全局工具配置
+
+安装Java和Maven，都选择自动安装,输入名字并选择相应版本
+
+jdk选择8、输入Oracle账号密码：bcxp66@126.com
+
+
+6、系统管理->管理插件，安装Maven Integration plugin
+
+7、安装完重启jenkins
+
+
+3、配置Maven项目（git）
+
+配置丢弃旧的构建 10 10
+
+源码管理选择 git，并设置某项目路径：https://github.com/dianbaer/jenkins
+
+输入git账号密码
+
+构建环境选中 Add timestamps to the Console Output
+
+Build 配置 clean package
+
+Post Steps 选择 Run only if build succeeds
+
+进行构建
+
+4、配置Maven项目svn
+选择Subversion
+配置路径http://192.168.4.6:8082/svn/TCSLBasePlatform/code/FrameWork/springboot-admin
+账号密码
+xuep
+{DAEBDC4B-549D-45A8-9152-F211DDA84DDE}
