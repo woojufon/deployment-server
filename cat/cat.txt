@@ -28,7 +28,16 @@ http://ip:8080/cat
 账号密码catadmin
 
 
-6、时间必须同步（待定）
+6、时间必须同步（待定），数据库也需要时间同步
 
 yum -y install ntp
 ntpdate ntp1.aliyun.com
+
+7、配置客户端路由（不配置是连不上cat的）
+
+配置->全局警告配置->客户端路由
+
+<?xml version="1.0" encoding="utf-8"?>
+<router-config backup-server="127.0.0.1" backup-server-port="2280">
+   <default-server id="192.168.12.243" weight="1.0" port="2280" enable="true"/>
+</router-config>
