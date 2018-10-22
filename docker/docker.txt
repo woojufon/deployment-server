@@ -19,6 +19,8 @@
 	 systemctl start docker
 	 
 	 docker version
+	 
+	 docker info
 
 5、修改配置文件etc/docker/daemon.json，重启docker
 
@@ -77,7 +79,7 @@
 
 	docker top 63a91e2a5881
 
-17、查状态
+17、查状态及挂载
 
 	docker inspect 63a91e2a5881
 
@@ -115,5 +117,15 @@
 23、与宿主机时间同步
 
 	docker cp /etc/localtime 506f810413bd:/etc/localtime
+	
+24、查看docker网络
+
+	docker network ls
+	
+	docker network create spush-net
+	
+	docker network rm spush-net
+	
+	
 	
 	
