@@ -78,7 +78,7 @@ source=/opt/web/-------------------本地硬盘路径
 
 docker node inspect vgin58irycp04qfp02v334ngf
 
-11、创建网络（不用给slave创建网络，swarm会同步获取，取消服务时会自动删除）
+11、创建网络（不用给slave创建网络，swarm会同步获取，取消服务时会自动删除。如果没在哪台机器创建，则不复制网络）
 
 docker network create -d overlay spush-net
 
@@ -103,6 +103,8 @@ uz8du0uc45fc        spush-net           overlay             swarm
 
 docker service ps --no-trunc 57h0pk46egrl
 
+
+13、执行start_base_cluster脚本
 
 
 
