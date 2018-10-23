@@ -1,9 +1,80 @@
-1、显示节点信息
+1、安装swarm（Master）
+
+docker swarm init
+
+2、添加工作节点（Slave）
+
+docker swarm join --token SWMTKN-1-2kddoomxnu8hew6dg3g33g13ima2k18gxbyv9c6o7dghfsifjh-6sgs11oj063e1texeqczap3r7 192.168.12.243:2377
+
+加入之后会，增加两个网络
+
+未加入
+
+NETWORK ID          NAME                DRIVER              SCOPE
+7a4e2b256eb1        bridge              bridge              local
+2c8b4050c9bc        host                host                local
+f535f8d810a9        none                null                local
+
+加入后
+
+NETWORK ID          NAME                DRIVER              SCOPE
+7a4e2b256eb1        bridge              bridge              local
+9c6b5f721d63        docker_gwbridge     bridge              local
+2c8b4050c9bc        host                host                local
+3z5gqhwwg4at        ingress             overlay             swarm
+f535f8d810a9        none                null                local
+
+3、显示节点信息（Master）
+
 docker node ls
 
-2、显示所有服务信息
+4、创建服务
+
+####docker把网络打通，就算有一个节点或者三个节点，docker内部通过负载均衡进行调度，所以访问Master还是Slave节点，都是走docker网络在进行分发
+
+docker service create --name nginx --replicas 2 -p 80:80/tcp nginx
+
+创建2个nginx服务，分别在两个节点
+
+
+5、显示所有服务信息
+
 docker service ls
 
-3、显示某服务详细信息
-docker service ps g5d1o8iacpr1
+6、显示某服务详细信息（根据NODE信息，就知道在哪个节点启动了）
+
+docker service ps h5dsw6xnuclf
+docker service ps nginx（用名字也可以）
+
+
+7、设置nginx起几个服务，根据目前情况进行增减
+
+docker service scale nginx=1
+
+8、更新操作（对已经配置的服务进行更新）
+
+docker service update --replicas 3 nginx-------------更新节点数
+docker service update --image nginx:1.10.3 nginx-----更新镜像
+
+主节点如果不运行了，docker ps -a 可以查到是退出状态
+slave节点如果不运行了，docker ps -a 什么都查不到
+
+9、移除服务
+
+docker service rm nginx
+
+9、挂载本地目录
+
+docker service create --name nginx --mount type=bind,target=/etc/nginx,source=/home/nginx --replicas 2 -p 80:80/tcp nginx
+
+
+type=bind--------------------------本地目录
+target=/usr/share/nginx/html/------docker容器目录
+source=/opt/web/-------------------本地硬盘路径
+
+
+
+
+
+
 
