@@ -74,7 +74,9 @@ target=/usr/share/nginx/html/------docker容器目录
 source=/opt/web/-------------------本地硬盘路径
 
 
+10、查看节点信息
 
+docker node inspect vgin58irycp04qfp02v334ngf
 
 
 
