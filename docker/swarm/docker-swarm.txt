@@ -1,0 +1,9 @@
+1、显示节点信息
+docker node ls
+
+2、显示所有服务信息
+docker service ls
+
+3、显示某服务详细信息
+docker service ps g5d1o8iacpr1
+
