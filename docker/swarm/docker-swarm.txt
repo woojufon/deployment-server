@@ -31,6 +31,7 @@ docker node ls
 4、创建服务
 
 ####docker把网络打通，就算有一个节点或者三个节点，docker内部通过负载均衡进行调度，所以访问Master还是Slave节点，都是走docker网络在进行分发
+####如果本地网络有docker服务，则直接访问本地网络，如果本地网络没有，访问其他节点的服务，通过nginx的host.access.log，就可以看出其中规律
 
 docker service create --name nginx --replicas 2 -p 80:80/tcp nginx
 
@@ -65,7 +66,7 @@ docker service rm nginx
 
 9、挂载本地目录
 
-docker service create --name nginx --mount type=bind,target=/etc/nginx,source=/home/nginx --replicas 2 -p 80:80/tcp nginx
+docker service create --name nginx --mount type=bind,target=/etc/nginx,source=/home/nginx --mount type=bind,target=/var/log/nginx,source=/home/nginx/log --replicas 2 -p 80:80/tcp nginx
 
 
 type=bind--------------------------本地目录
