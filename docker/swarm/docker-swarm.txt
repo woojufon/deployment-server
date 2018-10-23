@@ -106,6 +106,8 @@ docker service ps --no-trunc 57h0pk46egrl
 
 13、执行start_base_cluster脚本
 
+确保挂载目录都有，一般起不来都是这个原因
+
 
 
 
