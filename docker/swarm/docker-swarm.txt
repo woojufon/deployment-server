@@ -78,6 +78,34 @@ source=/opt/web/-------------------本地硬盘路径
 
 docker node inspect vgin58irycp04qfp02v334ngf
 
+11、创建网络（不用给slave创建网络，swarm会同步获取，取消服务时会自动删除）
+
+docker network create -d overlay spush-net
+
+NETWORK ID          NAME                DRIVER              SCOPE
+5c8b22858725        bridge              bridge              local
+d6f337d95454        docker_gwbridge     bridge              local
+4895e79e8478        host                host                local
+3z5gqhwwg4at        ingress             overlay             swarm
+e36504cbb8c1        none                null                local
+uz8du0uc45fc        spush-net           overlay             swarm
+
+NETWORK ID          NAME                DRIVER              SCOPE
+7a4e2b256eb1        bridge              bridge              local
+9c6b5f721d63        docker_gwbridge     bridge              local
+2c8b4050c9bc        host                host                local
+3z5gqhwwg4at        ingress             overlay             swarm
+f535f8d810a9        none                null                local
+uz8du0uc45fc        spush-net           overlay             swarm
+
+
+12、查看详细错误
+
+docker service ps --no-trunc 57h0pk46egrl
+
+
+
+
 
 
 
