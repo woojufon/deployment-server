@@ -1,0 +1,38 @@
+version: '3.3'
+
+networks:
+  spush-net:
+    external: true
+
+services:
+
+  redis:
+    image: redis
+    hostname: redis
+    networks:
+      - spush-net
+    ports:
+     - "6379:6379"
+    volumes:
+      - $DATA_PATH/redis:/data:rw
+      - /etc/localtime:/etc/localtime:ro
+    command: redis-server --appendonly yes
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+      placement:
+        constraints: [node.hostname == centos73-245]
+      update_config:
+        parallelism: 2
+        delay: 60s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
+
+
