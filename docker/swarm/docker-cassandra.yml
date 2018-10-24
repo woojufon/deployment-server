@@ -1,0 +1,36 @@
+version: '3.3'
+
+networks:
+  spush-net:
+    external: true
+
+services:
+
+  cassandra-1:
+    image: cassandra
+    networks:
+      - spush-net
+    hostname: cassandra-1
+    ports:
+      - "7000:7000"
+      - "9044:9042"
+    environment:
+      CASSANDRA_BROADCAST_ADDRESS: "cassandra-1"
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+      placement:
+        constraints: [node.hostname == centos73-245]
+      update_config:
+        parallelism: 2
+        delay: 60s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
+
