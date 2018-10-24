@@ -1,0 +1,39 @@
+version: '3.3'
+
+networks:
+  spush-net:
+    external: true
+
+
+services:
+
+  spush_manager:
+    image: 192.168.12.242/spush/spush_manager:$TAG_VERSION
+    networks:
+      - spush-net
+    hostname: spush_manager
+    ports:
+      - "80:8080"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      JAVA_OPTIONS: "-server -XX:PermSize=128m -XX:MaxPermSize=128m -Xms1024m -Xmx1024m -Xss1m -XX:+AlwaysPreTouch -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/usr/local/tomcat/logs -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/usr/local/tomcat/logs/gc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=32 -XX:GCLogFileSize=64m -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=8000 -Dcom.sun.management.jmxremote.rmi.port=8000 -Djava.rmi.server.hostname=0.0.0.0"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+      update_config:
+        parallelism: 2
+        delay: 10s
+      resources:
+        limits:
+           memory: 1536M
+        reservations:
+           memory: 1536M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
+
