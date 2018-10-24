@@ -10,7 +10,7 @@ source deploy-versions.sh
 
 #/usr/bin/docker network create -d overlay spush-net
 
-/usr/bin/docker stack deploy -c docker-base.yml $IMAGE_PROXY swarm-cluster
+/usr/bin/docker stack deploy -c docker-rabbit.yml $IMAGE_PROXY swarm-cluster
 
 #sleep 10
 
