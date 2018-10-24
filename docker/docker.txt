@@ -127,5 +127,13 @@
 	docker network rm spush-net
 	
 	
-	
+25、修改docker链接私有库harbor
+
+/usr/lib/systemd/system/docker.service修改
+
+ExecStart=/usr/bin/dockerd --insecure-registry=192.168.12.242
+
+systemctl daemon-reload
+systemctl restart docker
+
 	
