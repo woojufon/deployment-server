@@ -1,0 +1,32 @@
+version: '3.3'
+
+networks:
+  spush-net:
+    external: true
+
+services:
+
+  portainer:
+    image: portainer/portainer
+    hostname: portainer
+    networks:
+      - spush-net
+    ports:
+      - 9000:9000
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == centos73-245]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
