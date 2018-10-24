@@ -16,6 +16,8 @@ services:
       - "9044:9042"
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-1"
+    volumes:
+       - $DATA_PATH/cassandra/cassandra:/var/lib/cassandra:rw
     deploy:
       mode: replicated
       replicas: 1
