@@ -31,6 +31,8 @@ services:
            memory: 2048M
         reservations:
            memory: 2048M
+      placement:
+        constraints: [node.hostname == centos73-245]
     logging:
       driver: "json-file"
       options:
